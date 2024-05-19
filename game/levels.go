@@ -1,4 +1,4 @@
-package main
+package game
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 )
 
 /*Map для встроенных уровней*/
-var levels map[string]GameMap = map[string]GameMap{
+var Levels map[string]GameMap = map[string]GameMap{
 	"2x2": { //Поле 2x2
 		GameMap:         []int{0, 0, 0, 0},
 		WinCombinations: [][]int{{0, 1}, {2, 3}, {1, 2}, {0, 3}},
@@ -23,7 +23,7 @@ var levels map[string]GameMap = map[string]GameMap{
 }
 
 /*Берём пользовательский уровень, возвращает структуру GameMapи ошибку*/
-func getUserLevel(path string) (GameMap, error) {
+func GetUserLevel(path string) (GameMap, error) {
 	var (
 		result GameMap      //Результат
 		buf    bytes.Buffer //Буффер
@@ -31,13 +31,13 @@ func getUserLevel(path string) (GameMap, error) {
 	level, erOpenFile := os.Open(path) //Открываем json файл с уровнями
 	decoder := json.NewDecoder(&buf)   //Иницилизируем декодер
 	if erOpenFile != nil {
-		return GameMap{}, errors.New("Ошибка в поиске файла!") //Неправильный адрес
+		return GameMap{}, errors.New("ошибка в поиске файла") //Неправильный адрес
 	}
 	defer level.Close()
 
 	_, er := io.Copy(&buf, level) //Копируем из файла в буффер
 	if er != nil {
-		return GameMap{}, errors.New("Неккоректный файл!")
+		return GameMap{}, errors.New("неккоректный файл")
 	}
 
 	decoder.Decode(&result) //Декодирум json из буффера в структуру GameMap

@@ -1,15 +1,16 @@
-// go run main.go gameMap.go levels.go
+// go run main.go
 package main
 
 import (
 	"fmt"
+	"krestNulls/game"
 )
 
 func main() {
 	var (
-		gameMap   GameMap //Карта поля
-		shoot     int     //В какую ячейку выстрел
-		nameOfMap string  //Имя для игровой карты
+		gameMap   game.GameMap //Карта поля
+		shoot     int          //В какую ячейку выстрел
+		nameOfMap string       //Имя для игровой карты
 	)
 	fmt.Println("ДОБРО ПОЖАЛОВАТЬ В КРЕСТИКИ НОЛИКИ!")
 
@@ -21,39 +22,39 @@ func main() {
 			errr error
 		)
 		fmt.Scan(&f)
-		gameMap, errr = getUserLevel(f + ".json")
+		gameMap, errr = game.GetUserLevel(f + ".json")
 		if errr != nil {
 			panic(errr)
 		}
 	} else {
-		gameMap = levels[nameOfMap]
+		gameMap = game.Levels[nameOfMap]
 	}
 
 	for {
 		fmt.Println("Твой ход!")
-		fmt.Println(gameMap.printMap())
+		fmt.Println(gameMap.PrintMap())
 		fmt.Print("Введи куда ставить нолик: ")
 		fmt.Scan(&shoot)
 
-		gameMap.put(1, shoot-1)
+		gameMap.Put(1, shoot-1)
 
-		if gameMap.check(1) == 1 {
+		if gameMap.Check(1) == 1 {
 			fmt.Println("Победа!")
-			fmt.Println(gameMap.printMap())
+			fmt.Println(gameMap.PrintMap())
 			break
-		} else if gameMap.check(1) == 2 {
+		} else if gameMap.Check(1) == 2 {
 			fmt.Println("Ничья!")
-			fmt.Println(gameMap.printMap())
+			fmt.Println(gameMap.PrintMap())
 			break
 		} else {
-			gameMap.computerDoShoot()
-			if gameMap.check(2) == 1 {
+			gameMap.ComputerDoShoot()
+			if gameMap.Check(2) == 1 {
 				fmt.Println("Поражение!")
-				fmt.Println(gameMap.printMap())
+				fmt.Println(gameMap.PrintMap())
 				break
-			} else if gameMap.check(2) == 2 {
+			} else if gameMap.Check(2) == 2 {
 				fmt.Println("Ничья!")
-				fmt.Println(gameMap.printMap())
+				fmt.Println(gameMap.PrintMap())
 				break
 			}
 		}

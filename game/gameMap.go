@@ -1,4 +1,4 @@
-package main
+package game
 
 import (
 	"crypto/rand"
@@ -14,7 +14,7 @@ type GameMap struct {
 }
 
 /*Функция печатает карту для пользователя*/
-func (m GameMap) printMap() string {
+func (m GameMap) PrintMap() string {
 	var res string //Результат
 	for ind, val := range m.GameMap {
 		if ind%m.Size == 0 && ind != 0 { //Проверка на чётность размеру поля
@@ -41,7 +41,7 @@ func (m GameMap) printMap() string {
 1 - человек
 2 - компьютер
 */
-func (m GameMap) check(why int) int {
+func (m GameMap) Check(why int) int {
 	var sum int //Для определения ничьи
 
 	for _, combination := range m.WinCombinations { //Перебор комбинаций
@@ -66,12 +66,12 @@ func (m GameMap) check(why int) int {
 }
 
 /*Функция ставит O или X куда скажет пользователь/компьютер*/
-func (m *GameMap) put(why, where int) {
+func (m *GameMap) Put(why, where int) {
 	m.GameMap[where] = why
 }
 
 /*Функция делает ход за компьютер*/
-func (m GameMap) computerDoShoot() {
+func (m GameMap) ComputerDoShoot() {
 	/*Сначала проверяем есть ли варианты для победы*/
 	var success bool = m.searchOption(2)
 	if success {
@@ -90,7 +90,7 @@ func (m GameMap) computerDoShoot() {
 		}
 		whereShoot := int(nBig.Int64())
 		if m.GameMap[whereShoot] == 0 { //Если поле свободно, то бьём туда и выходим из цикла
-			m.put(2, whereShoot)
+			m.Put(2, whereShoot)
 			break
 		}
 	}
@@ -110,7 +110,7 @@ func (m GameMap) searchOption(why int) bool {
 			}
 		}
 		if null != -1 && sum == len(option)-1 { //Если есть 1 свободная клетка и все остальные заняты, то бьём в свободную
-			m.put(2, null)
+			m.Put(2, null)
 			return true
 		}
 	}
