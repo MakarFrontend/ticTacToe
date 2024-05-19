@@ -22,7 +22,7 @@ var Levels map[string]GameMap = map[string]GameMap{
 	},
 }
 
-/*Берём пользовательский уровень, возвращает структуру GameMapи ошибку*/
+/*Берём пользовательский уровень, возвращает структуру GameMap ошибку*/
 func GetUserLevel(path string) (GameMap, error) {
 	var (
 		result GameMap      //Результат

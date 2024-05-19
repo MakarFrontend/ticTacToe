@@ -67,7 +67,9 @@ func (m GameMap) Check(why int) int {
 
 /*Функция ставит O или X куда скажет пользователь/компьютер*/
 func (m *GameMap) Put(why, where int) {
-	m.GameMap[where] = why
+	if m.GameMap[where] == 0 {
+		m.GameMap[where] = why
+	}
 }
 
 /*Функция делает ход за компьютер*/
