@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"krestNulls/game"
+	"os"
 )
 
 func main() {
@@ -33,13 +34,16 @@ func main() {
 
 		for {
 			fmt.Println("Твой ход!")
-			fmt.Println(gameMap.PrintMap()) //Печатаем карту 1 раз
+			fmt.Println(gameMap.PrintMap()) //Печатаем карту первый раз
 			fmt.Print("Введи куда ставить нолик: ")
 			fmt.Scan(&shoot)
 			if shoot == -1 { //Прерываем партию если координа стрельбы -1
 				break
+			} else if shoot == -2 {
+				fmt.Fprintln(os.Stdout, "Ход пропущен")
+			} else {
+				gameMap.Put(1, shoot-1) //Ставим нолик
 			}
-			gameMap.Put(1, shoot-1) //Ставим нолик
 
 			if gameMap.Check(1) == 1 { //Если победа
 				fmt.Println("Победа!")
