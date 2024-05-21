@@ -11,6 +11,7 @@ type GameMap struct {
 	GameMap         []int   `json:"map"`          //Карта игроков, 0 - пусто, 1 - человек, 2 - компьютер
 	WinCombinations [][]int `json:"combinations"` //Победные комбинации
 	Size            int     `json:"size"`         //Размер поля в длину
+	First           bool    `json:"compFirst"`    //Компьютер первый или нет
 }
 
 /*Функция печатает карту для пользователя*/
@@ -98,7 +99,7 @@ func (m GameMap) ComputerDoShoot() {
 	}
 }
 
-/*Для выигрыша компьютера / мешаем человеку выиграть*/
+/*Для выигрыша компьютера / мешаем человеку выиграть. Приватная функция*/
 func (m GameMap) searchOption(why int) bool {
 	for _, option := range m.WinCombinations {
 		var null int = -1 //Индекс первой свободной клетки

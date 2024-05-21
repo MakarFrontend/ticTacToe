@@ -45,8 +45,12 @@ func main() {
 				}
 			}
 		}
-
-		for {
+		var i int = 1
+		for { //Бесконечный цикл для ставки ноликов и крестиков
+			if gameMap.First && i == 1 {
+				gameMap.ComputerDoShoot()
+				i--
+			}
 			fmt.Println("Твой ход!")
 			fmt.Println(gameMap.PrintMap()) //Печатаем карту первый раз
 			for {                           //Делаем бесконечный цикл и ждём пока пользователь не введёт что-то адекватное
