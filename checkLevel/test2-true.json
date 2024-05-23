@@ -1,6 +1,5 @@
 {
     "map": [0, 0, 0, 0, 0],
 	"combinations": [[1, 2]],
-	"size": 23,
-	"compFirst": false
+	"size": 23
 }
